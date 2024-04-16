@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk33ylwkpgd34"]
+
+[ext_resource type="Script" path="res://scripts/suit_box.gd" id="1_bv0y2"]
+[ext_resource type="Texture2D" uid="uid://bgbv13186yyvv" path="res://sprites/suit_box.png" id="1_cc2ny"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_us20l"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0aevm"]
+size = Vector2(38, 36)
+
+[node name="suit_box" type="CharacterBody2D"]
+position = Vector2(0, -60)
+script = ExtResource("1_bv0y2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cc2ny")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_us20l")
+
+[node name="detect_wall_right" type="RayCast2D" parent="."]
+target_position = Vector2(17, 0)
+
+[node name="detect_wall_left" type="RayCast2D" parent="."]
+target_position = Vector2(-17, 0)
+
+[node name="death" type="Area2D" parent="." groups=["suit"]]
+
+[node name="death" type="CollisionShape2D" parent="death"]
+shape = SubResource("RectangleShape2D_0aevm")
+
+[connection signal="body_entered" from="death" to="." method="_on_kill_body_entered"]

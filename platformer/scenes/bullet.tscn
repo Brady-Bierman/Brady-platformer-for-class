@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://pdgl3lbr14wc"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_3wdxs"]
+[ext_resource type="Texture2D" uid="uid://rdr1gtfm4h6e" path="res://sprites/projectile.png" id="2_l7iee"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_68nxl"]
+bounce = 0.8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31rrm"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tvm1x"]
+radius = 8.0
+
+[node name="bullet" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_68nxl")
+script = ExtResource("1_3wdxs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_l7iee")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_31rrm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tvm1x")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm32joqe241c6"]
+
+[ext_resource type="Script" path="res://scripts/suit_spawn.gd" id="1_n7j81"]
+[ext_resource type="Texture2D" uid="uid://dd3ve7x81vb7c" path="res://sprites/item_block_suit.png" id="2_p054x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0gm5"]
+size = Vector2(32, 10)
+
+[node name="suit_spawn" type="Area2D"]
+script = ExtResource("1_n7j81")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p054x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_c0gm5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

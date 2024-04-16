@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://6gll77lq7ipn"]
+
+[ext_resource type="Texture2D" uid="uid://b8tqrqdjc0cwo" path="res://sprites/bot.png" id="1_4gme3"]
+[ext_resource type="Script" path="res://scripts/bot.gd" id="1_7ry7i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gotao"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vdksy"]
+size = Vector2(35, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxgkf"]
+size = Vector2(30, 4)
+
+[node name="bot" type="CharacterBody2D" groups=["mob"]]
+script = ExtResource("1_7ry7i")
+
+[node name="bot_collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gotao")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4gme3")
+
+[node name="detect_wall_right" type="RayCast2D" parent="."]
+target_position = Vector2(17, 0)
+
+[node name="detect_wall_left" type="RayCast2D" parent="."]
+target_position = Vector2(-17, 0)
+
+[node name="detect_floor_right" type="RayCast2D" parent="."]
+position = Vector2(14, 0)
+target_position = Vector2(0, 30)
+
+[node name="detect_floor_left" type="RayCast2D" parent="."]
+position = Vector2(-14, 0)
+target_position = Vector2(0, 30)
+
+[node name="kill" type="Area2D" parent="."]
+
+[node name="kill" type="CollisionShape2D" parent="kill"]
+shape = SubResource("RectangleShape2D_vdksy")
+
+[node name="die" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="die"]
+position = Vector2(0, -17)
+shape = SubResource("RectangleShape2D_vxgkf")
+
+[connection signal="body_entered" from="kill" to="." method="_on_kill_body_entered"]
+[connection signal="body_entered" from="die" to="." method="_on_die_body_entered"]
